@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: defeault
+  jpa:
+    properties:
+      hibernate:
+        show_sql : true
+        format_sql: false
+        highlight_sql : true
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mateFinder
+    username: root
+    password: password

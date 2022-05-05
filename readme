@@ -1,0 +1,2 @@
+build app with bootJar
+run java -jar /build/libs/*.jar

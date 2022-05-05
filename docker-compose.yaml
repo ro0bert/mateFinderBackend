@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0.28
+    command: --default-authentication-plugin=mysql_native_password
+
+    #    volumes:
+#      - db_data:/var/lib/mysql
+    environment:
+#      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: mateFinder
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "4306:3306"
+#    working_dir: /var/lib/mysql
+#    volumes:
+#      - "./mysql:/var/lib/mysql:rw"
+  backend:
+    build:
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "9080:8080"
+    environment:
+        - "SPRING_PROFILES_ACTIVE=docker"
+
