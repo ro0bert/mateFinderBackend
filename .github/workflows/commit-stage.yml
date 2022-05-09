@@ -1,12 +1,26 @@
 name: Commit Stage
 on: push
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ro0bert/mate-finder-backend
+  VERSION: latest
+
 jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-20.04
     permissions:
       contents: read
+      security-events: write
+  package:
+    name: Package and Publish
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: [ build ]
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
       security-events: write
     steps:
       - name: Checkout source code
