@@ -71,4 +71,8 @@ public class AppUser {
                 .build();
 
     }
+
+    public void removeEvent(Event event) {
+        this.getEvents().remove(event);
+    }
 }

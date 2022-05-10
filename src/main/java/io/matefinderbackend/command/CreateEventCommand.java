@@ -2,7 +2,9 @@ package io.matefinderbackend.command;
 
 import io.matefinderbackend.dto.AddressDto;
 import lombok.Getter;
+import org.springframework.lang.NonNull;
 
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,5 +18,6 @@ public class CreateEventCommand {
 
     private LocalDateTime endDate;
 
+    @Min(1)
     private Integer maxUsers;
 }

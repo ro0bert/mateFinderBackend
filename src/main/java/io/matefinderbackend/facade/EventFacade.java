@@ -9,6 +9,7 @@ import io.matefinderbackend.repository.AppUserRepository;
 import io.matefinderbackend.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ public class EventFacade {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void addUser(long eventId, long userId) {
         //TODO return value to test it
         Event event = eventRepository.findById(eventId)
@@ -44,7 +46,20 @@ public class EventFacade {
 
         event.validateIfShouldAdd(user);
         event.addUser(user);
-        eventRepository.saveAndFlush(event);
+//        eventRepository.saveAndFlush(event);
 
+    }
+
+    public void delete(long eventId) {
+        eventRepository.deleteById(eventId);
+    }
+
+    @Transactional
+    public void removeUser(long eventId, long userId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event with id: " + eventId + " not found"));
+        AppUser user = appUserRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("App User with id: " + userId + " not found"));
+        event.removeUser(user);
     }
 }

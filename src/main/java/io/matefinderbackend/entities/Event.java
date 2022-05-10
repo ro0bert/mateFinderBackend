@@ -106,4 +106,8 @@ public class Event {
     }
 
 
+    public void removeUser(AppUser user) {
+        this.appUsers.remove(user);
+        user.removeEvent(this);
+    }
 }
